@@ -14,12 +14,9 @@
 먼저, `Pyenv`를 설치합니다. `Pyenv`는 다양한 Python 버전을 관리할 수 있는 도구입니다.
 
 ```bash
-# 필수 의존성 설치
-sudo apt-get update
-sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
-libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev \
-python-openssl git
+brew update
+brew install pyenv
+alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
 
 # Pyenv 설치
 curl https://pyenv.run | bash
@@ -32,18 +29,22 @@ echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init --path
 echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
 source ~/.bashrc
 
+
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 ```
 ### 1.2 Python 버전 설치
 Pyenv를 사용하여 필요한 Python 버전을 설치합니다. 예를 들어 Python 3.9.7을 설치하려면 다음 명령어를 사용합니다:
 
 ```bash
-pyenv install 3.9.7
+pyenv install 3.12.5
 ```
 ### 1.3 프로젝트 디렉토리에서 Python 버전 설정
 프로젝트 디렉토리로 이동한 후, 해당 디렉토리에서 사용할 Python 버전을 설정합니다:
 
 ```bash
-pyenv local 3.9.7
+pyenv local 3.12.5
 ```
 이 명령어는 현재 디렉토리와 그 하위 디렉토리에서 Python 3.9.7 버전을 기본으로 사용하도록 설정합니다.
 
@@ -70,19 +71,24 @@ Poetry를 사용하여 새 프로젝트를 초기화하고, 필요한 패키지�
 # 프로젝트 디렉토리 생성 및 이동
 mkdir recommender-system-project
 cd recommender-system-project
+```
 
+```bash
 # Poetry 프로젝트 초기화
 poetry init --no-interaction
-
+```
+```bash
 # 가상환경 활성화
 poetry shell
-
+```
+```bash
 # 필요한 패키지 설치
 poetry add numpy pandas scikit-learn lightgbm catboost tensorflow
 
 mkdir recommender-system-project와 cd recommender-system-project 
 명령어를 사용하여 프로젝트 디렉토리를 생성하고 이동합니다.
-
+```
+```bash
 poetry init --no-interaction 명령어를 사용하여 Poetry 프로젝트를 초기화합니다. --no-interaction 플래그는 대화형 입력 없이 기본값으로 설정합니다.
 
 poetry shell 
